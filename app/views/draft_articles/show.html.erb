@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @draft_article %>
+
+<div>
+  <%= link_to "Edit this draft article", edit_article_draft_article_path(@draft_article, article_id: @draft_article.article_id) %> |
+  <%= link_to "Back to draft articles", article_draft_articles_path(@draft_article, article_id: @draft_article.article_id) %>
+
+  <%#= button_to "Destroy this draft article", @draft_article, method: :delete %>
+</div>
