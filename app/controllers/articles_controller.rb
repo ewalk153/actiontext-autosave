@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    @article.load_draft unless params[:no_draft] == "1"
   end
 
   # POST /articles or /articles.json

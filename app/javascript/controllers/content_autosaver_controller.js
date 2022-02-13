@@ -5,11 +5,12 @@ export default class extends Controller {
   static values = { 
     url: String, 
     refreshInterval: Number,
-    articleForm: String,
+    articleContent: String,
+    currentValue: String,
   }
 
   connect() {
-    // this.load() // we don't need to save right away
+    this.prepare();
   
     if (this.hasRefreshIntervalValue) {
       this.startRefreshing()
@@ -26,27 +27,41 @@ export default class extends Controller {
     }, this.refreshIntervalValue)
   }
 
+  prepare() {
+    this.currentValue = this.getContent();
+  }
+
   load() {
-    const formElement = document.getElementById(this.articleFormValue);
-    const data = new URLSearchParams();
-    for (const pair of new FormData(formElement)) {
-      data.append(pair[0], pair[1]);
+    // client side or server side dedupe content
+    // client side: only send if it's has changed
+    // server side, check most recent draft and only change if it has changed
+    const contentValue = this.getContent();
+    if (this.currentValue === contentValue) {
+      console.log("values match, not saving a new version.");
+      console.log(this.currentValue, contentValue);
+      return;
     }
+    const data = new URLSearchParams();
 
-    const auth_token = document.querySelector('meta[name="csrf-token"]').content;
-    data.append("authenticity_token", auth_token);
-    data.append("draft_article[content]", data.get("article[content]"));
-
-    data.delete("article[content]");
-    data.delete("_method");    
+    data.append("authenticity_token", this.getAuthToken());
+    data.append("draft_article[content]", contentValue);
 
     fetch(this.urlValue, {
       method: 'post',
       body: data,
     })
       .then(response => response.text())
-      .then(html => this.element.innerHTML = "saved");
-    console.log('load called');
+      .then(html => this.element.innerHTML = html);
+      this.currentValue = contentValue;
+      console.log('save complete.');
+  }
+
+  getContent() {
+    return document.getElementById(this.articleContentValue).value;
+  }
+
+  getAuthToken() {
+    return document.querySelector('meta[name="csrf-token"]').content;
   }
 
   stopRefreshing() {

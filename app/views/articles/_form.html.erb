@@ -19,6 +19,12 @@
 
   <div>
     <%= form.label :content, style: "display: block" %>
+    TODO - write something to clean up old drafts, and also a previewer for them, maybe use
+    the existing drafts index page for this...
+    <% if article.draft_loaded %>
+      (latest draft shown)
+      <%= link_to "load saved version", "?no_draft=1"%>
+    <% end %>
     <%= form.rich_text_area :content %>
   </div>
 
@@ -28,13 +34,6 @@
 <% end %>
 <div data-controller="content-autosaver"
      data-content-autosaver-url-value="<%= article_draft_articles_path(article) if article.persisted? %>"
-     data-content-autosaver-refresh-interval-value="5000"
-     data-content-autosaver-article-form-value="articleForm"
+     data-content-autosaver-refresh-interval-value="<%= 0.5 * 60 * 1000 %>"
+     data-content-autosaver-article-content-value="article_content_trix_input_article_1"
      ></div>
-<!--
-<div data-controller="content-loader"
-     data-content-loader-url-value="/messages.html"
-     data-content-loader-refresh-interval-value="5000"
-     ></div>
--->
-
