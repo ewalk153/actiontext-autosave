@@ -35,5 +35,6 @@
 <div data-controller="content-autosaver"
      data-content-autosaver-url-value="<%= article_draft_articles_path(article) if article.persisted? %>"
      data-content-autosaver-refresh-interval-value="<%= 0.5 * 60 * 1000 %>"
-     data-content-autosaver-article-content-value="article_content_trix_input_article_1"
+     data-content-autosaver-content-source-element-id-value="article_content_trix_input_article_1"
+     data-content-autosaver-content-submission-field-value="draft_article[content]"
      ></div>

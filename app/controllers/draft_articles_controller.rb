@@ -1,23 +1,11 @@
 class DraftArticlesController < ApplicationController
   before_action :set_article
-  before_action :set_draft_article, only: %i[ show edit update destroy ]
+  before_action :set_draft_article, only: %i[ show ]
 
-  # GET /draft_articles or /draft_articles.json
   def index
-    @draft_articles = DraftArticle.all
   end
 
-  # GET /draft_articles/1 or /draft_articles/1.json
   def show
-  end
-
-  # GET /draft_articles/new
-  def new
-    @draft_article = DraftArticle.new
-  end
-
-  # GET /draft_articles/1/edit
-  def edit
   end
 
   # POST /draft_articles or /draft_articles.json
@@ -32,29 +20,6 @@ class DraftArticlesController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @draft_article.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /draft_articles/1 or /draft_articles/1.json
-  def update
-    respond_to do |format|
-      if @draft_article.update(draft_article_params)
-        format.html { redirect_to draft_article_url(@draft_article), notice: "Draft article was successfully updated." }
-        format.json { render :show, status: :ok, location: @draft_article }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @draft_article.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /draft_articles/1 or /draft_articles/1.json
-  def destroy
-    @draft_article.destroy
-
-    respond_to do |format|
-      format.html { redirect_to draft_articles_url, notice: "Draft article was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
