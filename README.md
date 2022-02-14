@@ -1,24 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is sample app, showing how to create a sample app with autosave.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Editing provided with ActionText
+- Changes are push to the server with a Stimulus controller
+- Latest draft is displayed in the edit form, when present
+- On update, all drafts are cleared
