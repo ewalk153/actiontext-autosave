@@ -19,8 +19,6 @@
 
   <div>
     <%= form.label :content, style: "display: block" %>
-    TODO - write something to clean up old drafts, and also a previewer for them, maybe use
-    the existing drafts index page for this...
     <% if article.draft_loaded %>
       (latest draft shown)
       <%= link_to "load saved version", "?no_draft=1"%>
